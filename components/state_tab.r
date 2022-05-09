@@ -1,8 +1,3 @@
-
-source("components/text_modules.r")
-
-
-
 state_tab <- tabItem("state",
                      fluidRow(
                        box(

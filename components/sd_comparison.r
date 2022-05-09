@@ -1,7 +1,3 @@
-
-
-source("components/text_modules.r")
-
 sd_tab <- tabItem(tabName = "compare_sd", 
                   fluidRow(
                     box(width = 12, background = "blue",solidHeader = T,headerBorder = F,

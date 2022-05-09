@@ -1,9 +1,3 @@
-
-
-source("components/text_modules.r")
-
-
-
 all_sd <- tabItem(tabName = "all_sd",
                   fluidRow(
                     box(width = 12, 

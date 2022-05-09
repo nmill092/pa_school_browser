@@ -1,5 +1,3 @@
-source("components/text_modules.r")
-
 county_tab <- tabItem(
   "county",
   fluidRow(

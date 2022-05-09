@@ -3,4 +3,6 @@
 .RData
 .Ruserdata
 rsconnect/
+rsconnect/*
 .DS_Store
+**/.DS_Store

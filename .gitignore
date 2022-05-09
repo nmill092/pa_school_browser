@@ -3,8 +3,5 @@
 .RData
 .Ruserdata
 rsconnect/
-rsconnect
-/rsconnect
-rsconnect/*
 **/.DS_Store
 .DS_Store

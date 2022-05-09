@@ -116,7 +116,7 @@ lea_counties <- lea_counties %>% left_join(lea_counties_4, by = "county") %>% mu
 
 ## Join in map data --------------------------------------------------------
 
-counties <- readOGR("PaCounty2022_04","PaCounty2022_04")
+counties <- readOGR("data/PaCounty2022_04","PaCounty2022_04")
 
 
 counties$COUNTY_NAM <- str_to_title(counties$COUNTY_NAM)

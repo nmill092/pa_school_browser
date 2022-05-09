@@ -2,7 +2,7 @@ about <- tabItem("about",
   fluidRow(
     box(width = 12,
         title = "About this App",
-        HTML(readLines("about-text.html"),"<hr/>"),
+        HTML(readLines("components/about-text.html"),"<hr/>"),
         socialButton(
           href = "https://dropbox.com",
           icon = icon("dropbox")

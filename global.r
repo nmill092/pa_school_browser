@@ -59,7 +59,7 @@ lea_sel$grads_college_pct[lea_sel$county=="Philadelphia"] <- NA
 ## Census Data  ------------------------------------------------------------
 
 census_data <-
-  get_acs(
+  get_acs(key = Sys.getenv("CENSUS_API_KEY"),
     geography = "school district (unified)",
     variables = c(medincome = "B19013_001", population = "B01003_001"),
     state = "PA",

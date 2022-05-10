@@ -1,9 +1,8 @@
-# load("prep.Rds")
+
 
 source("global.r", local = T)
 source("components/state_tab.r", local = T)
 source("components/county_tab.r", local = T)
-source("components/text_modules.r", local = T)
 source("components/sd_comparison.r", local = T)
 source("components/all_sds.r", local = T)
 source("components/about.r", local = T)
@@ -17,10 +16,9 @@ db_sideBar = dashboardSidebar(
   id = "menu",
   width = 300,
   sidebarMenu(
-    menuItem("About this App", tabName = "about", icon = icon("info")),
+    menuItem("About this App", selected = T, tabName = "about", icon = icon("info")),
     menuItem(
-      "State Overview",
-      selected = T,
+      "State Overview",badgeLabel = "Start here!",badgeColor = "green",
       tabName = "state",
       icon = icon("map-marked-alt")
     ),
@@ -91,12 +89,10 @@ server <- function(input, output, session) {
   
   observeEvent(input$map1_shape_click, {
     clicked_county(input$map1_shape_click$id)
-    print(clicked_county())
   })
   
   observeEvent(input$map1_click, {
     clicked_county(unique(counties$COUNTY_NAM))
-    print(clicked_county())
   })
   
   
@@ -139,13 +135,10 @@ server <- function(input, output, session) {
   })
   
   observe({
-    print(selected_county_var())
-    
-    pal <- colorBin("YlGnBu",
+ pal <- colorBin("YlGnBu",
                     domain = selected_county_var(),
                     bins = 4,
                     pretty = T)
-    print("re-rendering...")
     
     leafletProxy("map1") %>%
       clearShapes() %>%
@@ -292,8 +285,7 @@ server <- function(input, output, session) {
         "4-Year Graduation Rate" = gradrate_4year_total,
         "College-Bound Graduates %" = grads_college_pct,
         "Total Suspensions/Expulsions" = exp_sus
-      ) %>%
-      filter(`County` != "Philadelphia") %>% filter(`County` %in% clicked_county())
+      ) %>% filter(`County` %in% clicked_county())
     
     datatable(
       data,
@@ -350,13 +342,13 @@ server <- function(input, output, session) {
     selected_county <- toupper(input$county_drilldown_sel)
     
     lat <-
-      mean(purrr::map_dbl(shp[shp@data$cty_name == selected_county, ]@polygons, ~
+      mean(purrr::map_dbl(shp[shp@data$cty_name == selected_county,]@polygons, ~
                             .@labpt[2]))
     lng <-
-      mean(purrr::map_dbl(shp[shp@data$cty_name == selected_county, ]@polygons, ~
+      mean(purrr::map_dbl(shp[shp@data$cty_name == selected_county,]@polygons, ~
                             .@labpt[1]))
     
-    data <- shp[shp@data$cty_name == selected_county, ]
+    data <- shp[shp@data$cty_name == selected_county,]
     
     leafletProxy("county_tab_map") %>%
       clearShapes() %>%
@@ -595,7 +587,7 @@ server <- function(input, output, session) {
     selected_sds <- c(input$compare_1, input$compare_2)
     variable_name <-
       names(map_vars)[map_vars == input$sd_var_of_interest]
-    print(variable_name)
+    
     data <-
       lea_plus %>% ungroup() %>% filter(schoolname %in% selected_sds)
     
@@ -624,6 +616,21 @@ server <- function(input, output, session) {
                                   hcaes(x = "county",
                                         y = !!input$count_var_of_interest),
                                   name = variable_name) %>% hc_add_theme(hc_theme_economist()) %>% hc_plotOptions(column = list(dataLabels = list(enabled = T))) %>% hc_xAxis(categories = data$county)
+  })
+  
+  output$counts_compare_header <- renderText({
+    HTML(
+      paste(
+        "<div style='margin:auto; display:block; width:100%; text-align:center'><strong>",
+        names(map_vars)[map_vars == input$count_var_of_interest],
+        "</strong><br>",
+        "<em>Comparing",
+        input$compare_1_count,
+        "County and",
+        input$compare_2_count,
+        "County</em></div>"
+      )
+    )
   })
   
   
@@ -674,10 +681,10 @@ server <- function(input, output, session) {
     selected_county <- toupper(input$county_drilldown_sel)
     
     lat <-
-      mean(purrr::map_dbl(shp[shp@data$cty_name == selected_county, ]@polygons, ~
+      mean(purrr::map_dbl(shp[shp@data$cty_name == selected_county,]@polygons, ~
                             .@labpt[2]))
     lng <-
-      mean(purrr::map_dbl(shp[shp@data$cty_name == selected_county, ]@polygons, ~
+      mean(purrr::map_dbl(shp[shp@data$cty_name == selected_county,]@polygons, ~
                             .@labpt[1]))
     
     

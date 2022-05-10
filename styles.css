@@ -5,15 +5,17 @@
   
 } 
 
-[data-value='Compare two LEAs'] .box-body { 
+[data-value='Compare two Districts'] .box-body { 
   display: flex;
     justify-content: space-between; flex-direction:column; 
   
 } 
 
-[data-value='Compare two LEAs'] .box-title { 
+[data-value='Compare two Districts'] .box-title, [data-value='Compare two Counties'] .box-title  { 
   display:block 
 }
+
+
                          
                          
 * { 

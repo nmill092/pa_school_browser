@@ -57,11 +57,9 @@ county_tab <- tabItem(
   ),
   fluidRow(tabBox(
     width = 12,
-    tabPanel(
       myPanel("user", "Demographic Profile", "counties_demoDT"),
       myPanel("line-chart", "Socioeconomic Profile", "counties_socioDT"),
       myPanel("toolbox", "Student/Teacher Support", "counties_moneyDT"),
       myPanel("school", "Student Performance", "counties_perfDT")
-    )
   ))
 )

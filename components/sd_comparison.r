@@ -6,7 +6,7 @@ sd_tab <- tabItem(tabName = "compare_sd",
                   fluidRow(
                   tabBox(
                     width = 12,
-                    tabPanel("Compare two LEAs", 
+                    tabPanel("Compare two Districts", 
                              box(width=12,
                                pickerInput(width=NULL,
                                  inputId = "compare_1",
